@@ -101,7 +101,6 @@ venv.bak/
 
 #Other
 .DS_Store
-Icon?
 node_modules
 /node_modules
 
