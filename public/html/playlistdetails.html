@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>FiftyList - Playlist Details.</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/playlistdetails.css">
+    <link rel="icon" type="image/png" sizes="180x180" href="/images/icons/logo180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/images/icons/logo192.png">
+    <script>
+        function displayCurrentDateTime() {
+            const currentDateTime = new Date();
+            const dateFormatted = currentDateTime.toLocaleDateString();
+            const timeFormatted = currentDateTime.toLocaleTimeString();
+            
+            const dateTimeElement = document.getElementById('current-datetime');
+            dateTimeElement.textContent = `Date and Time: ${dateFormatted} ${timeFormatted}`;
+        }
+
+        function getQueryStringValue(key) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(key);
+        }
+
+       document.addEventListener('DOMContentLoaded', function () {
+    const playlistUrl = getQueryStringValue('playlist_url');
+    const playlistUrlElement = document.getElementById('playlist-url');
+
+    if (playlistUrl) {
+        const playlistLink = document.createElement('a');
+        playlistLink.href = playlistUrl;
+        playlistLink.textContent = `Listen on Spotify.`;
+        playlistUrlElement.appendChild(playlistLink);
+    } else {
+        playlistUrlElement.textContent = 'Playlist URL not available';
+    }
+
+    displayCurrentDateTime();
+});
+
+    </script>
+
+</head>
+<body>
+    <div class="container">
+        <div class="blobs">
+          <div class="blob big-blob"></div>
+          <div class="blob"></div>
+          <div class="blob"></div>
+          <div class="blob"></div>
+          <div class="blob"></div>
+          <div class="blob"></div>
+          <div class="blob"></div>
+        </div>
+        
+        <div class="glass-cover"></div>
+        <div class="card">
+          <h1 class="overlay__title">
+            <h1 style="text-align: center; display: block; margin: 0 auto;">Playlist Successfully Created.</h1>
+            <h3 style="text-align: center; display: block; margin: 0 auto;">Name: FiftyList - Fetching Your Top 50 Jams.</h2>
+            <p id="playlist-url"></p>
+            <p id="current-datetime">Date and Time: </p>
+          </h1>
+          <br>
+          <div class="button-new" style="width: 50%; text-align: center; display: block; margin: 0 auto;" onclick="window.close();">
+            Close
+        </div> 
+        </div> 
+        </div>
+      </div>
+</body>
+</html>
