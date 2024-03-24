@@ -1,7 +1,5 @@
 # Welcome to the [Fifty List](https://fiftylist.vercel.app/) Project.
 
-IMPORTANT: This project is under maintenance.
-
 This project is a music automation platform and is featured within my portfolio at ivanluna.dev. It showcases a seamless integration of React and Python. For detailed insights, please visit [this link](https://ivanluna.dev/projects/post-reactpython-fiftylist/).
 
 ## Demo
@@ -16,6 +14,8 @@ Visit the live app: [fiftylist.vercel.app](https://fiftylist.vercel.app)
 
 ### Frontend (React.js)
 - Spotify Integration: Fetches your top 50 tracks from Spotify within a chosen timeframe (1, 6 months, or all-time classics).
+- Export To Playlist (Results): Automatically generates a new playlist on your Spotify account with these 50 tracks. 
+- Export To Playlist (Recommendations): Based on your top 50 listened songs, our recommendation engine suggests an additional 20 songs to add to your playlists.
 
 ### Backend (Python)
 - Flask-Powered: Acts as a middleware that interfaces with React.

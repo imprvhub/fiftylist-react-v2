@@ -1,13 +1,16 @@
 import React from 'react';
 import { format } from 'date-fns';
 
-const TopSongsList = ({ topSongs, getArtistName, isAuthenticationResolved }) => {
+const TopSongsList = ({ topSongs, getArtistName, isAuthenticationResolved, handleExportPlaylist }) => {
   return (
     <div>
       {isAuthenticationResolved && (
         <>
           <h4>Results:</h4>
-          <br />
+          <div className="button-wrapper">
+            <button className="button-new" onClick={handleExportPlaylist}>Export To Playlist</button>
+          </div>
+          <br></br>
         </>
       )}
       {topSongs.length > 0 && (

@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:400');
 
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+
 .song-name-text:hover {
   color: #18EE90;
 }
@@ -115,10 +121,8 @@ h5 {font-size: 1.25rem;}
     animation: none;
     transition: opacity 0.3s ease-in-out;
     border-radius: 10px;
-
   }
   
-
   .button-spotify-login:not(.disabled):after {
     z-index: -1;
     content: "";
@@ -128,15 +132,15 @@ h5 {font-size: 1.25rem;}
     transition: color 0.4s, transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
     background: linear-gradient(
       45deg,
-      #18EE90,
-      #000000,
-      #006063,
-      #000000,
-      #000000,
-      #000000,
-      #000000,
-      #006063,
-      #18EE90
+      #002F2B,
+      #000000,     
+      #002F31,      
+      #000000,      
+      #002F31,      
+      #002F31,      
+      #000000,      
+      #002F31,      
+      #000000 
     );
     left: 0;
     top: 0;
@@ -1776,5 +1780,23 @@ a {
     .button-new {
       margin-top: 1rem;
       margin-bottom: 1rem;
+    }
+  }
+
+  @media (min-width: 300px) and (max-width: 475px){
+    .button-wrapper {
+      margin-right: 2rem;
+    }
+  }
+
+  @media (min-width: 476px) and (max-width: 600px){
+    .button-wrapper {
+      margin-right: 2rem;
+    }
+  }
+
+  @media (min-width: 600px) and (max-width: 768px){
+    .button-wrapper {
+      margin-right: 2rem;
     }
   }

@@ -1,13 +1,16 @@
 import React from 'react';
 import { format } from 'date-fns';
 
-const RecommendationsList = ({ recommendedTracks, isAuthenticationResolved }) => {
+const RecommendationsList = ({ recommendedTracks, isAuthenticationResolved, handleExportRecommendations }) => {
   return (
     <div>
       {isAuthenticationResolved && (
         <>
           <h4>Recommendations based on your Fifty List:</h4>
-          <br />
+          <div className="button-wrapper">
+            <button className="button-new" onClick={handleExportRecommendations}>Export To Playlist</button>
+          </div>
+          <br></br>
         </>
       )}
       {recommendedTracks.length > 0 ? (

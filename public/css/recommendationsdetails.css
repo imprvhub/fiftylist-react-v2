@@ -4,14 +4,18 @@
 html {font-size: 80%;} 
 
 body {
-  background: white;
+  background: rgb(0, 0, 0);
   font-family: 'Poppins', sans-serif;
   font-weight: 400;
   line-height: 1.75;
-  color: #000000;
+  color: #ffffff;
 }
 
-p {margin-block-end: 1rem;}
+p {
+  margin-block-end: 1rem;
+  letter-spacing: 2px;;
+  text-transform: uppercase;
+}
 
 h1, h2, h3, h4, h5 {
   margin: 3rem 0 1.38rem;
@@ -33,7 +37,28 @@ h4 {font-size: 1.563rem;}
 
 h5 {font-size: 1.25rem;}
 
+a {
+  text-decoration: none;
+  color: #18EE90; 
+  transition: color 0.3s;
+  }
+  
+a:hover {
+    color: #00AB60; 
+  }
+
 small, .text_small {font-size: 0.8rem;}
+
+.highlight {
+  color: #18EE90; 
+  transition: color 0.3s;
+  text-decoration: none;
+}
+
+.highlight:hover {
+  color: #00AB60; 
+  text-decoration: none;
+}
 
 .button-container {
   display: flex;
