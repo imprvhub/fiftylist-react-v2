@@ -144,6 +144,7 @@ h5 {font-size: 1.25rem;}
     border-radius: 10px;
   }
   
+  
 
   @keyframes glowing-button-spotify-login {
     0% {
@@ -312,16 +313,23 @@ border-radius: 10px;
   margin-bottom: 2rem;
 } 
 .scroll-container {
-  backdrop-filter: blur(5px); 
-  background-color: rgb(0 0 0 / 12%); 
-}
-
-.scroll-container2 {
-  max-height: 50vh;
+  max-height: 60vh;
   overflow-y: auto;
   overflow-x: hidden;
   backdrop-filter: blur(5px); 
-  background-color: rgb(0 0 0 / 12%); 
+  background-color: rgba(191, 191, 191, 0.12); 
+  border-radius: 30px;
+  padding-bottom: 30px;
+}
+
+.scroll-container2 {
+  max-height: 60vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  backdrop-filter: blur(5px); 
+  background-color: rgba(191, 191, 191, 0.12); 
+  border-radius: 30px;
+  padding-bottom: 30px;
 }
 
 .song-list-item {
@@ -957,7 +965,11 @@ a {
 
   .song-list-items {
     grid-template-columns: 1fr;
-    margin-right: 5.6rem;
+    margin-right: 2.8rem;
+  }
+
+  .scroll-container, .scroll-container2 {
+    margin-right: 2rem;
   }
 
 
@@ -1191,7 +1203,11 @@ a {
 
   .song-list-items {
     grid-template-columns: 1fr;
-    margin-right: 5.6rem;
+    margin-right: 3.6rem;
+  }
+
+  .scroll-container, .scroll-container2 {
+    margin-right: 2rem;
   }
 
   .song-list-item,
