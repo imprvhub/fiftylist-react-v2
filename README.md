@@ -8,7 +8,7 @@ Visit the live app: [fiftylist.vercel.app](https://fiftylist.vercel.app)
 
 ### Preview
 
-![Preview](./static/images/preview.png "Preview")
+![Preview](./public/images/preview.png "Preview")
 
 ### Key Features
 
