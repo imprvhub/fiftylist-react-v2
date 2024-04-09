@@ -1,10 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { supabase } from "../lib/helper/supabaseClient"
 
 const AuthenticationComponent = ({ accessToken, acceptedTerms, handleSpotifyLogin, handleTermsChange }) => {
     const [showProjectInfo, setShowProjectInfo] = useState(false);
     const [showTermsInfo, setShowTermsInfo] = useState(false);
     const [rotateIcon, setRotateIcon] = useState(false);
+    const [showRetryMessage, setShowRetryMessage] = useState(false);
+    const [lastSuccessfulAttempt, setLastSuccessfulAttempt] = useState(null);
+    const [buttonDisabled, setButtonDisabled] = useState(false);
+    const [timer, setTimer] = useState(null);
+
+    const startTimer = () => {
+        const timeout = setTimeout(() => {
+            setButtonDisabled(false);
+            setShowRetryMessage(false);
+        }, 5 * 60 * 1000);
+        setTimer(timeout);
+    };
+
+    useEffect(() => {
+        const stopTimer = () => {
+            clearTimeout(timer);
+        };
+    
+        return () => {
+            stopTimer();
+        };
+    }, [timer]);
 
     const handleLanguageChange = (selectedLanguage) => {
       if (selectedLanguage === 'Español') {
@@ -12,29 +34,57 @@ const AuthenticationComponent = ({ accessToken, acceptedTerms, handleSpotifyLogi
       }
   };
   
-  
-
     const [email, setEmail] = useState('');
 
     const handleEmailChange = (event) => {
       setEmail(event.target.value);
     };
 
-    const handleAddEmail = async () => {
-      try {
-          const { data, error } = await supabase.from('emails').insert([{ email }]);
-          if (error) {
-              alert("An error has happened when trying to add your email to the list of allowed users. Please try again later.");
-              console.error('Error adding email:', error.message);
-          } else {
-              alert("Congratulations! Your account will be added to the list of allowed users. You will receive a confirmation email once the process is completed. Thanks for choosing Fiftylist!");
-              console.log('', data);
-          }
-      } catch (error) {
-          alert("An error has happened when trying to add your email to the list of allowed users. Please try again later.");
-          console.error('Error adding email:', error);
-      }
-  };
+
+  const handleAddEmail = async () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        alert("Enter an email with valid format please.");
+        return;
+    }
+
+    try {
+        const { data, error } = await supabase.from('emails').insert([{ email }]);
+        if (error) {
+            if (error.message.includes("example")) {
+                alert("Intente nuevamente en 5 minutos.");
+                setShowRetryMessage(true);
+                startTimer();
+            } else {
+                alert("An error has ocurred when trying to add your email to the list of allowed users.");
+                console.error('Error adding email:', error.message);
+            }
+        } else {
+            alert("Congratulations! Your account will be added to the list of allowed users. You will receive a confirmation email once the process is completed. Thanks for choosing Fiftylist!");
+            console.log('', data);
+            setButtonDisabled(true);
+            const now = new Date();
+            setLastSuccessfulAttempt(now);
+        }
+    } catch (error) {
+        alert("An error has happened when trying to add your email to the list of allowed users. Please try again later.");
+        console.error('Error adding email:', error);
+    }
+};
+
+    const handleAddButtonClick = () => {
+        const now = new Date();
+        if (lastSuccessfulAttempt) {
+            const diff = now - lastSuccessfulAttempt;
+            if (diff < 5 * 60 * 1000) {
+                alert("Wait 5 minutes before trying to add your email again.");
+            } else {
+                handleAddEmail();
+            }
+        } else {
+            handleAddEmail();
+        }
+    };
 
   return (
     <div className="spotify-login-container">
@@ -64,7 +114,7 @@ const AuthenticationComponent = ({ accessToken, acceptedTerms, handleSpotifyLogi
 
                         <div className="spotify-login-container">
                             <div className="spotify-email-main-container">
-                                <span style={{ fontSize: '10px', textTransform: 'uppercase' }}>EMAIL FROM YOUR SPOTIFY ACCOUNT: </span>
+                                <span style={{ fontSize: '10px', textTransform: 'uppercase' }}>SPOTIFY ACCOUNT EMAIL: </span>
                                 <div className="spotify-email-container">
                                     <input 
                                         type="text" 
@@ -72,15 +122,22 @@ const AuthenticationComponent = ({ accessToken, acceptedTerms, handleSpotifyLogi
                                         value={email} 
                                         onChange={handleEmailChange} 
                                     />
-                                    <input 
-                                        style={{ fontSize: '10px', textTransform: 'uppercase' }} 
-                                        type="submit" 
-                                        value="ADD" 
-                                        onClick={handleAddEmail} 
+                                    <input
+                                        style={{ fontSize: '10px', textTransform: 'uppercase', backgroundColor: buttonDisabled ? 'grey' : 'black' }}
+                                        type="submit"
+                                        value="ADD"
+                                        onClick={handleAddButtonClick}
+                                        disabled={buttonDisabled}
                                     />
+                                    {showRetryMessage && (
+                                        <p style={{ fontSize: '10px', color: 'red', textTransform: 'uppercase' }}>
+                                            Please try again in 5 minutes.
+                                        </p>
+                                    )}
                                 </div>
                             </div>
                         </div>
+
                         <p style={{ fontSize: '10px', textTransform: 'uppercase' }}>Already in the <strong>allowed users</strong> list? After accepting the privacy policies and terms of use, log in with Spotify.</p>
                         <div className="title-container" onClick={() => setShowProjectInfo(!showProjectInfo)}>
                             <div className={`icon ${showProjectInfo ? '' : 'rotate'}`}>
