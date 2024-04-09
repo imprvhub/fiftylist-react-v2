@@ -122,6 +122,7 @@ const App = () => {
       const displayName = userData.display_name;
       const imageUrl = userData.images.length > 0 ? userData.images[0].url : null;
       const uri = userData.uri;
+
       const { data, error } = await supabase.from('users').insert([
         { userid: userId, displayname: displayName, imageurl: imageUrl, uri: uri },
       ]);
@@ -131,7 +132,7 @@ const App = () => {
       } else {
         console.log('', data);
       }
-      
+        
     } catch (error) {
       console.error('Error retrieving user info:', error);
     }
