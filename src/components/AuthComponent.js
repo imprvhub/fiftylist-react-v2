@@ -33,7 +33,7 @@ const AuthenticationComponent = ({ accessToken, acceptedTerms, handleSpotifyLogi
                 return;
             }
         try {
-            const { data, error } = await supabase.from('emails').insert([{ email }]);
+            const { data, error } = await supabase.from('emails').insert([{ email, lang: 'fiftylist-english' }]);
             if (error) {
                 alert("An error has ocurred when trying to add your email to the list of allowed users.");
                 console.error('Error adding email:', error.message);
