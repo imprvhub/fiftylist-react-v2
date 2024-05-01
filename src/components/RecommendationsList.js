@@ -17,7 +17,7 @@ const RecommendationsList = ({ recommendedTracks, isAuthenticationResolved, hand
             <button className="button-new" onClick={handleExportRecommendations}>
                 <div style={{ display: 'flex', alignItems: 'center', padding: '3px'}}>
                   <img src="images/icons/addplaylist.png" alt="Exportar a Playlist" style={{ marginTop: '3px', width: '20px', height: '15px', marginRight: '5px' }} />
-                  <div className="label-new" style={{ fontSize: '12px' }}>Add to new playlist</div>
+                  <div className="label-new" style={{ fontSize: '12px' }}>Add to a new playlist</div>
                 </div>
               </button>
           </div>
