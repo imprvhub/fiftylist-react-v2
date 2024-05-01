@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { supabase } from "../lib/helper/supabaseClient";
 
 const AuthenticationComponent = ({ accessToken, acceptedTerms, handleSpotifyLogin, handleTermsChange }) => {
@@ -15,6 +15,49 @@ const AuthenticationComponent = ({ accessToken, acceptedTerms, handleSpotifyLogi
             </a>
         </p>
     );
+
+    const handleScroll = () => {
+        const loginWrapper = document.getElementById('login-wrapper');
+        const upIcon = document.getElementById('upIcon');
+        const downIcon = document.getElementById('downIcon');
+        const extraHeight = (showEmailContainer || showProjectInfo || showTermsInfo) ? 814.84 : 0; // Ajusta este valor según la altura de los elementos ocultos
+        if (loginWrapper && upIcon && downIcon) {
+            if (loginWrapper.scrollTop === 0) {
+                upIcon.style.display = 'none';
+            } else {
+                upIcon.style.display = 'block';
+            }
+            if (loginWrapper.scrollTop + loginWrapper.offsetHeight >= loginWrapper.scrollHeight + extraHeight) {
+                downIcon.style.display = 'none';
+            } else {
+                downIcon.style.display = 'block';
+            }
+        }
+    };
+
+    useEffect(() => {
+        const loginWrapper = document.getElementById('login-wrapper');
+        if (loginWrapper) {
+            loginWrapper.addEventListener('scroll', handleScroll);
+            return () => {
+                loginWrapper.removeEventListener('scroll', handleScroll);
+            };
+        }
+    }, []);
+
+    const handleScrollUp = () => {
+        const loginWrapper = document.getElementById('login-wrapper');
+        if (loginWrapper) {
+            loginWrapper.scrollTop -= 200; 
+        }
+    };
+
+    const handleScrollDown = () => {
+        const loginWrapper = document.getElementById('login-wrapper');
+        if (loginWrapper) {
+            loginWrapper.scrollTop += 200;
+        }
+    };
    
     const handleLanguageChange = (selectedLanguage) => {
         if (selectedLanguage === 'Español') {
@@ -55,7 +98,7 @@ const AuthenticationComponent = ({ accessToken, acceptedTerms, handleSpotifyLogi
             <div id="login-wrapper" style={{ maxHeight: '300px', overflowY: 'scroll', letterSpacing: '1px' }}>
                 <div className="intro">
                     <div id="up">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" width="20">
+                    <svg id="upIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" width="20"   onClick={handleScrollUp}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
                         </svg>
                     </div>
@@ -140,7 +183,7 @@ const AuthenticationComponent = ({ accessToken, acceptedTerms, handleSpotifyLogi
                         )}
 
                         <div id="down">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" width="20">
+                        <svg id="downIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" width="20" onClick={handleScrollDown}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                             </svg>
                         </div>
