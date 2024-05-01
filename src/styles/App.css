@@ -141,6 +141,13 @@ h4 {
 
 h5 {font-size: 1.25rem;}
 
+.label-new {
+  letter-spacing: 2px;
+  border: none;
+  outline: none;
+  margin-top: 2px;
+  color: rgb(255, 255, 255);
+  }
 
 .button-spotify-login {
   margin: 0 auto;

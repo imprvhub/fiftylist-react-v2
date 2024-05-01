@@ -7,14 +7,20 @@ const RecommendationsList = ({ recommendedTracks, isAuthenticationResolved, hand
       {isAuthenticationResolved && (
         <>
           <h4>Recommendations based on your Fifty List:</h4>
-          <div className="button-wrapper">
-            <button className="button-new" onClick={handleExportRecommendations}>Export To Playlist</button>
-          </div>
           <br></br>
         </>
       )}
       {recommendedTracks.length > 0 ? (
         <div className="scroll-container2">
+          <br></br>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <button className="button-new" onClick={handleExportRecommendations}>
+                <div style={{ display: 'flex', alignItems: 'center', padding: '3px'}}>
+                  <img src="images/icons/addplaylist.png" alt="Exportar a Playlist" style={{ marginTop: '3px', width: '20px', height: '15px', marginRight: '5px' }} />
+                  <div className="label-new" style={{ fontSize: '12px' }}>Add to new playlist</div>
+                </div>
+              </button>
+          </div>
           <div className="song-list">
             <ul className="song-list-items">
               {recommendedTracks.map((track, index) => (

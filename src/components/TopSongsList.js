@@ -7,14 +7,20 @@ const TopSongsList = ({ topSongs, getArtistName, isAuthenticationResolved, handl
       {isAuthenticationResolved && (
         <>
           <h4>Results:</h4>
-          <div className="button-wrapper">
-            <button className="button-new" onClick={handleExportPlaylist}>Export To Playlist</button>
-          </div>
           <br></br>
         </>
       )}
       {topSongs.length > 0 && (
         <div className="scroll-container">
+          <br></br>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <button className="button-new" onClick={handleExportPlaylist}>
+                <div style={{ display: 'flex', alignItems: 'center', padding: '3px'}}>
+                  <img src="images/icons/addplaylist.png" alt="Exportar a Playlist" style={{ marginTop: '3px', width: '20px', height: '15px', marginRight: '5px' }} />
+                  <div className="label-new" style={{ fontSize: '12px' }}>Add to a new playlist</div>
+                </div>
+              </button>
+          </div>
           <div className="song-list">
             <ul className="song-list-items">
               {topSongs.map((song, index) => (
