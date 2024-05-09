@@ -23,6 +23,7 @@ const App = () => {
   const [recommendedTracks, setRecommendedTracks] = useState([]);
   const [isAuthenticationResolved, setIsAuthenticationResolved] = useState(false);
   const [showUnauthorizedError, setShowUnauthorizedError] = useState(false);
+  const [showNoContentError, setShowNoContentError] = useState(false);
 
   async function fetchWebApi(endpoint, method, body) {
     const res = await fetch(`https://api.spotify.com/${endpoint}`, {
@@ -192,6 +193,10 @@ const App = () => {
             headers: { Authorization: `Bearer ${accessToken}` },
           }
         );
+        if (response.data.items.length === 0) {
+          setShowNoContentError(true); 
+          return; 
+        }
         const trackIds = response.data.items.map((song) => song.id);
         const newTopTracksIds = trackIds.slice(0, 2);
         setTopTracksIds(newTopTracksIds);
@@ -401,6 +406,17 @@ const App = () => {
               </p>
               <br>
               </br>
+            </div>
+          )}
+          {showNoContentError && (
+            <div>
+              <p style={{ fontSize: '10px', textTransform: 'uppercase' }}>
+              <strong>No content</strong> - No songs found. This request requires a significant listening history to provide results. Please listen to more music and try again in 72 hours.
+                <a className="highlight" href="/html/howitworks.html" target="_blank">
+                  <b style={{ fontSize: '10px' }}> More Information.</b>
+                </a>
+              </p>
+              <br />
             </div>
           )}
           <div className="footer" style={{
