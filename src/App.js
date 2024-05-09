@@ -22,6 +22,7 @@ const App = () => {
   const [topTracksIds, setTopTracksIds] = useState([]);
   const [recommendedTracks, setRecommendedTracks] = useState([]);
   const [isAuthenticationResolved, setIsAuthenticationResolved] = useState(false);
+  const [showUnauthorizedError, setShowUnauthorizedError] = useState(false);
 
   async function fetchWebApi(endpoint, method, body) {
     const res = await fetch(`https://api.spotify.com/${endpoint}`, {
@@ -219,7 +220,13 @@ const App = () => {
           fetchArtistInfo(song.artists[0].id);
         }
       } catch (error) {
-        console.log('Error retrieving top songs:', error);
+        if (error.response) {
+          if (error.response.status === 401 || error.response.status === 403) {
+            setShowUnauthorizedError(true);
+          } else {
+            console.log('Error retrieving top songs:', error);
+          }
+        }
       }
     }
   };
@@ -384,6 +391,18 @@ const App = () => {
           <span style={{ paddingBottom: '100px', display: 'block' }}></span>
           <br></br>
           <br></br>
+          {showUnauthorizedError && (
+          <div>
+              <p style={{ fontSize: '10px', textTransform: 'uppercase' }}>
+                <strong>Unauthorized</strong> - The request requires user authentication or, if the request included authorization credentials, authorization has been refused for those credentials.
+                <a className="highlight" href="/html/howitworks.html" target="_blank">
+                  <b style={{ fontSize: '10px' }}> More Information.</b>
+                </a>
+              </p>
+              <br>
+              </br>
+            </div>
+          )}
           <div className="footer" style={{
             background: 'black',
             color: 'white',
