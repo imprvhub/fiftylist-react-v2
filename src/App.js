@@ -8,9 +8,9 @@ import RecommendationsList from './components/RecommendationsList';
 import logo from './images/logo.png';
 import { supabase } from "./lib/helper/supabaseClient"
 
-const clientId = process.env.REACT_APP_CLIENT_ID_EN;
-const clientSecret = process.env.REACT_APP_CLIENT_SECRET_EN;
-const redirectUri = "https://fiftylist.vercel.app/callback";
+const clientId = process.env.REACT_APP_CLIENT_ID;
+const clientSecret = process.env.REACT_APP_CLIENT_SECRET;
+const redirectUri = process.env.REACT_APP_REDIRECT_URI;
 const scopes = process.env.REACT_APP_SCOPES;
 
 const App = () => {
@@ -24,6 +24,7 @@ const App = () => {
   const [isAuthenticationResolved, setIsAuthenticationResolved] = useState(false);
   const [showUnauthorizedError, setShowUnauthorizedError] = useState(false);
   const [showNoContentError, setShowNoContentError] = useState(false);
+
 
   async function fetchWebApi(endpoint, method, body) {
     const res = await fetch(`https://api.spotify.com/${endpoint}`, {
@@ -58,7 +59,7 @@ const App = () => {
       throw error;
     }
   };
-
+  
   useEffect(() => {
     const handleAuthentication = async () => {
       const queryString = window.location.search;
@@ -85,6 +86,7 @@ const App = () => {
 
             const token = response.data.access_token;
             setAccessToken(token);
+          
           } catch (error) {
             console.error('Error retrieving access token:', error);
           }
@@ -139,6 +141,7 @@ const App = () => {
       console.error('Error retrieving user info:', error);
     }
   };
+  
 
   const fetchArtistInfo = async (artistId) => {
     try {
@@ -236,6 +239,7 @@ const App = () => {
     }
   };
 
+
   function capitalizeWords(str) {
     return str.replace(/\b\w/g, function(char) {
       return char.toUpperCase();
@@ -257,10 +261,10 @@ const App = () => {
   const exportShare = async () => {
     try {
       const data = dataExport.join('\n\n');
-      window.open('https://fiftylistbackend.vercel.app/share', '_blank');
+      window.open('https://fiftylistbackend-es.vercel.app/share', '_blank');
       await new Promise(resolve => setTimeout(resolve, 1000));
   
-      const response = await fetch('https://fiftylistbackend.vercel.app/share', {
+      const response = await fetch('https://fiftylistbackend-es.vercel.app/share', {
         method: 'POST',
         headers: {
           'Content-Type': 'text/plain',
@@ -308,8 +312,8 @@ const App = () => {
         console.warn('');
       }
     } catch (error) {
-      console.error('Error Fetching Recommendations', error);
-      console.error('Details:', error.response.data);
+      console.error('Error obteniendo recomendaciones:', error);
+      console.error('Detalles del error de la respuesta:', error.response.data);
     }
   }, [topSongs, accessToken, topTracksIds, setRecommendedTracks]);
 
@@ -318,7 +322,7 @@ const App = () => {
       getRecommendations();
     }
   }, [getRecommendations, topTracksIds]);
-
+  
   const handleExportPlaylist = async () => {
     if (accessToken) {
       const tracksUri = topSongs.map((song) => `spotify:track:${song.id}`);
@@ -356,7 +360,6 @@ const App = () => {
       console.error('Error: accessToken no está definido');
     }
   };
-  
 
   return (
     <div className="card">
@@ -369,7 +372,6 @@ const App = () => {
       <div className="blob"></div>
       <div className="blob"></div>
     </div>
-    
     <div className="glass-cover"></div>
         <div className="App">
           <div className="logo-container">
@@ -388,13 +390,13 @@ const App = () => {
             topSongs={topSongs}
             fetchTopSongs={fetchTopSongs}
             exportShare={exportShare}
-          />
+          />  
           {showUnauthorizedError && (
           <div>
               <p style={{ fontSize: '10px', textTransform: 'uppercase' }}>
-                <strong>Unauthorized</strong> - The request requires user authentication or, if the request included authorization credentials, authorization has been refused for those credentials.
+                <strong>No Autorizado</strong> - La solicitud requiere autenticación de usuario o, si la solicitud incluyó credenciales de autorización, la autorización ha sido rechazada para esas credenciales.
                 <a className="highlight" href="/html/howitworks.html" target="_blank">
-                  <b style={{ fontSize: '10px' }}> More Information.</b>
+                  <b style={{ fontSize: '10px' }}> Más Información.</b>
                 </a>
               </p>
               <br>
@@ -404,18 +406,18 @@ const App = () => {
           {showNoContentError && (
             <div>
               <p style={{ fontSize: '10px', textTransform: 'uppercase' }}>
-              <strong>No content</strong> - No songs found. This request requires a significant listening history to provide results. Please listen to more music and try again in 72 hours.
+              <strong>No hay contenido</strong> - No se han encontrado canciones. Esta solicitud requiere un historial significativo de escucha de canciones para proporcionar resultados. Intente escuchar más música y vuelva a intentarlo en 72 horas.
                 <a className="highlight" href="/html/howitworks.html" target="_blank">
-                  <b style={{ fontSize: '10px' }}> More Information.</b>
+                  <b style={{ fontSize: '10px' }}> Más Información.</b>
                 </a>
               </p>
               <br />
             </div>
-          )}  
-          <TopSongsList topSongs={topSongs} getArtistName={getArtistName} isAuthenticationResolved={isAuthenticationResolved} handleExportPlaylist={handleExportPlaylist} />
+          )}
+          <TopSongsList topSongs={topSongs} getArtistName={getArtistName} isAuthenticationResolved={isAuthenticationResolved} handleExportPlaylist={handleExportPlaylist}/>
           <br></br>
           <br></br>
-          <RecommendationsList recommendedTracks={recommendedTracks} isAuthenticationResolved={isAuthenticationResolved} handleExportRecommendations={handleExportRecommendations} />
+          <RecommendationsList recommendedTracks={recommendedTracks} isAuthenticationResolved={isAuthenticationResolved} handleExportRecommendations={handleExportRecommendations}/>
           <span style={{ paddingBottom: '100px', display: 'block' }}></span>
           <br></br>
           <br></br>
@@ -434,12 +436,12 @@ const App = () => {
           }}>
             <div className="dynamic-text">
               <a href="/html/howitworks.html" className="highlight" target="_blank" rel="noopener noreferrer" style={{ letterSpacing: '1.5px', textDecoration: 'none'  }}>
-                How It Works?
+                Cómo Funciona?
               </a>
             </div>
 
             <div style={{ letterSpacing: '1.5px' }}>
-              © 2024 Iván Luna. Software Developer.
+              © 2024 Iván Luna. Desarrollador de Software.
             </div>
             <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
 

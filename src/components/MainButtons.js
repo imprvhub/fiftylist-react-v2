@@ -23,7 +23,7 @@ const MainButtons = ({
           <div className="time-range-container">
             <div className="time-range-selector">
               <label style={{fontSize: '13px', letterSpacing: '1px' }} htmlFor="time-range" className="time-range-label">
-                Select Time Range:
+                Seleccionar Período de Tiempo:
               </label>
               <select
                 id="time-range"
@@ -32,9 +32,9 @@ const MainButtons = ({
                 style={{ textAlign: 'center', fontSize: '13px'}}
                 className={`time-range-select ${timeRange}`}
               >
-                <option value="short_term">Last Month</option>
-                <option value="medium_term">Last 6 Months</option>
-                <option value="long_term">All Time</option>
+                <option value="short_term">Último mes</option>
+                <option value="medium_term">Últimos 6 meses</option>
+                <option value="long_term">Todos los tiempos</option>
               </select>
             </div>
           </div>
@@ -46,7 +46,7 @@ const MainButtons = ({
               onMouseLeave={() => setActiveButton(null)}
               style= {{ fontSize: '13px'}}
             >
-              Fetch Your 50 Top Songs
+              Obtener 50 tracks más escuchados
             </button>
 
             {showExportButtons && (
@@ -59,7 +59,7 @@ const MainButtons = ({
                   disabled={!topSongs.length}
                   style= {{ fontSize: '13px'}}
                 >
-                  Create FiftyCard
+                  Generar FiftyCard
                 </button>
               </>
             )}
@@ -72,7 +72,7 @@ const MainButtons = ({
               onMouseLeave={() => setActiveButton(null)}
               style= {{ fontSize: '13px'}}
             >
-              Revoke Access
+              Revocar Acceso
             </a>
           </div>
         </>

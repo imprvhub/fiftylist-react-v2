@@ -6,7 +6,7 @@ const RecommendationsList = ({ recommendedTracks, isAuthenticationResolved, hand
     <div>
       {isAuthenticationResolved && (
         <>
-          <h4>Recommendations based on your Fifty List:</h4>
+          <h4 style={{ letterSpacing: '1px' }}>Recomendaciones sugeridas:</h4>
           <br></br>
         </>
       )}
@@ -17,7 +17,7 @@ const RecommendationsList = ({ recommendedTracks, isAuthenticationResolved, hand
             <button className="button-new" onClick={handleExportRecommendations}>
                 <div style={{ display: 'flex', alignItems: 'center', padding: '3px'}}>
                   <img src="images/icons/addplaylist.png" alt="Exportar a Playlist" style={{ marginTop: '3px', width: '20px', height: '15px', marginRight: '5px' }} />
-                  <div className="label-new" style={{ fontSize: '12px' }}>Add to a new playlist</div>
+                  <div className="label-new" style={{ fontSize: '12px' }}>Añadir a nueva playlist</div>
                 </div>
               </button>
           </div>
@@ -60,15 +60,15 @@ const RecommendationsList = ({ recommendedTracks, isAuthenticationResolved, hand
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <span className="album-label">Album: </span><span className="album-name-text">{track.albumName}</span>
+                          <span className="album-label">Álbum: </span><span className="album-name-text">{track.albumName}</span>
                         </a>
                       </span>
                       <br />
-                      <span className="release-date">Released: {format(new Date(track.releaseDate), 'dd-MM-yyyy')}</span>
+                      <span className="release-date">Lanzamiento: {format(new Date(track.releaseDate), 'dd-MM-yyyy')}</span>
 
                       <br />
                       <span className="genres">
-                        Genres: {track.genres.length > 0 ? (
+                        Géneros: {track.genres.length > 0 ? (
                           track.genres.slice(0, 3).map((genre, index, array) => (
                             <span key={index}>
                               <a
