@@ -388,14 +388,7 @@ const App = () => {
             topSongs={topSongs}
             fetchTopSongs={fetchTopSongs}
             exportShare={exportShare}
-          />  
-          <TopSongsList topSongs={topSongs} getArtistName={getArtistName} isAuthenticationResolved={isAuthenticationResolved} handleExportPlaylist={handleExportPlaylist} />
-          <br></br>
-          <br></br>
-          <RecommendationsList recommendedTracks={recommendedTracks} isAuthenticationResolved={isAuthenticationResolved} handleExportRecommendations={handleExportRecommendations} />
-          <span style={{ paddingBottom: '100px', display: 'block' }}></span>
-          <br></br>
-          <br></br>
+          />
           {showUnauthorizedError && (
           <div>
               <p style={{ fontSize: '10px', textTransform: 'uppercase' }}>
@@ -418,7 +411,15 @@ const App = () => {
               </p>
               <br />
             </div>
-          )}
+          )}  
+          <TopSongsList topSongs={topSongs} getArtistName={getArtistName} isAuthenticationResolved={isAuthenticationResolved} handleExportPlaylist={handleExportPlaylist} />
+          <br></br>
+          <br></br>
+          <RecommendationsList recommendedTracks={recommendedTracks} isAuthenticationResolved={isAuthenticationResolved} handleExportRecommendations={handleExportRecommendations} />
+          <span style={{ paddingBottom: '100px', display: 'block' }}></span>
+          <br></br>
+          <br></br>
+          
           <div className="footer" style={{
             background: 'black',
             color: 'white',
